@@ -1,0 +1,38 @@
+{% extends "news/base.html" %}
+{% load static %}
+
+{% block title %}Jahon{% endblock title %}
+{% block content %}
+<div class="fashion_technology_area">
+    <div class="fashion">
+      <div class="single_post_content">
+        <ul class="business_catgnav wow fadeInDown">
+          {% for news in foreign_news  %}
+          <li>
+            <figure class="bsbig_fig"> <a href="{{news.get_absolute_url}}" class="featured_img"> <img alt="" src="{{news.image.url}}"> <span class="overlay"></span> </a>
+              <figcaption> <a href="{{economy_one.get_absolute_url}}">{{news.title}}</a> </figcaption>
+              <p> {{news.body | truncatewords:10}}</p>
+            </figure>
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+    <div class="technology">
+      <div class="single_post_content">
+        <ul class="business_catgnav">
+          {% for news in foreign_news %}
+          <li>
+            <figure class="bsbig_fig wow fadeInDown"> <a href="{{news.get_absolute_url}}" class="featured_img"> <img alt="" src="{{news.image.url}}"> <span class="overlay"></span> </a>
+              <figcaption> <a href="{{news.get_absolute_url}}">{{news.title}}</a> </figcaption>
+              <p>{{news.body |truncatewords:10}} </p>
+            </figure>
+          </li>
+          {% endfor %}
+        </ul>
+        
+      </div>
+    </div>
+  </div>
+  <div class="single_post_content">
+{% endblock content %}
