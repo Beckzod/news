@@ -1,10 +1,11 @@
+from django.urls import reverse
 from django.utils import timezone
 from django.db import models
 
 
 class PubManager(models.Manager):
     def get_queryset(self):
-        return super().get_queryset().filter(status="Published")
+        return super().get_queryset().filter(status=News.Status.Published)
 
 
 class Category(models.Model):
@@ -28,6 +29,7 @@ class News(models.Model):
     updated_time = models.DateTimeField(auto_now=True)
     status = models.CharField(max_length=2, choices=Status.choices,
                               default=Status.Draft)
+
     objects = models.Manager()
     published = PubManager()
 
@@ -36,3 +38,15 @@ class News(models.Model):
 
     class Meta:
         ordering = ['-published_time']
+
+    def get_absolute_url(self):
+        return reverse("news_detail_page", args=[self.slug])
+
+
+class Contact(models.Model):
+    name = models.CharField(max_length=150)
+    email = models.EmailField(max_length=150)
+    message = models.TextField()
+
+    def __str__(self):
+        return self.email
